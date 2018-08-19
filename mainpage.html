@@ -1,0 +1,212 @@
+<!DOCKTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="lab1 pip">
+        <meta name="author" content="Kirill Black">
+        <script type="text/javascript" src="jscript.js"></script>
+        <title>Lab1 PIP</title>
+        <style>
+            body{
+                background: url("img/4563.png") fixed;
+                background-size: 100%;
+            }
+            .container{
+                text-align: center;
+                margin: 0 auto;
+                border-radius: 20px;
+                border: 2px solid mediumvioletred;
+            }
+            .header{
+                font-family: monospace;
+                font-size: 3.3em;
+                height: 55px;
+                background-color: #282c34;
+                color: white;
+                width: 95%;
+            }
+            #group{
+                float: left;
+                margin-left: 25px;
+            }
+            #task{
+                float: right;
+                margin-right: 25px;
+            }
+            .main{
+                background: white;
+                margin: 5px auto;
+                width: 75%;
+                height: 88%;
+                font-family: "Helvetica";
+                font-size: 3em;
+                padding-bottom: 20px;
+            }
+            .main>p{
+                margin-top: 40px;
+                margin-bottom: 20px;
+            }
+            .form{
+                margin-bottom: 10px;
+            }
+            .form>p{
+                font-size: 0.8em;
+                margin-top: 15px;
+                margin-bottom: 10px;
+            }
+            .element{
+                width: 130px;
+                height: 35px;
+                font-size: 24px;
+                padding-left: 50px;
+            }
+            .X{
+                padding: 0 !important;
+                text-align: center !important;
+            }
+            .Y{
+                margin-bottom: 25px;
+            }
+            .Y:active{
+                background: blue;
+                color: white;
+            }
+            .R {
+                position: relative;
+                display: inline-block;
+                font-size: 20px;
+                font-weight: 700;
+                color: white;
+                text-decoration: none;
+                text-shadow: 0 -1px 2px rgba(0,0,0,.2);
+                padding: .5em 1em;
+                outline: none;
+                border-radius: 15px;
+                background: linear-gradient(#484848, #606060 80%) #484848;
+                box-shadow:
+                        0 1px rgba(255,255,255,.2) inset,
+                        0 3px 5px rgba(0,1,6,.5),
+                        0 0 1px 1px rgba(0,1,6,.2);
+                transition: .2s ease-in-out;
+                border: #282c34 10px;
+                width: 70px;
+                height: 40px;
+                margin-bottom: 20px;
+            }
+            .R:hover {
+                background: linear-gradient(#707070, #808080 90%) #404040;
+            }
+            .R:active {
+                top: 1px;
+                background: linear-gradient(#808080, #484848 60%) #282c34;
+                box-shadow: 0 0 1px rgba(0, 0, 0, .5) inset,
+                0 2px 3px rgba(0, 0, 0, .5) inset,
+                0 1px 1px rgba(255, 255, 255, .1);
+            }
+            .resTable{
+                margin: 0 auto;
+                background: white;
+                width: 75%;
+                display: none;
+            }
+            #sub {
+                position: relative;
+                display: inline-block;
+                font-size: 24px;
+                font-weight: 700;
+                color: white;
+                text-decoration: none;
+                text-shadow: 0 -1px 2px rgba(0,0,0,.2);
+                padding: .5em 1em;
+                outline: none;
+                border-radius: 15px;
+                background: linear-gradient(#FF43A9, #D2449D 90%) #D2449D;
+                box-shadow:
+                        0 1px rgba(255,255,255,.2) inset,
+                        0 3px 5px rgba(0,1,6,.5),
+                        0 0 1px 1px rgba(0,1,6,.2);
+                transition: .2s ease-in-out;
+                border: #282c34 10px;
+                width: 180px;
+                height: 60px;
+                margin-top: 16px;
+            }
+            #sub:hover {
+                background: linear-gradient(#FF43A9,#FF69BA 80%) #FF9FCF;
+            }
+            #sub:active {
+                top: 1px;
+                background: linear-gradient(#D2449D, #FF43A9 60%) #D2449D;
+                box-shadow: 0 0 1px rgba(0, 0, 0, .5) inset,
+                0 2px 3px rgba(0, 0, 0, .5) inset,
+                0 1px 1px rgba(255, 255, 255, .1);
+            }
+            .Rf{
+                border: white;
+                width: 70px;
+                display: none;
+                font-size: 40px;
+                font-weight: 600;
+            }
+            .pic{
+                margin-left: 89%;
+                width: 150px;
+            }
+            .text{
+                font-size: 20px;
+                margin-bottom: 10px;
+                margin-top: 0;
+            }
+            .error{
+                color: crimson;
+                font-style: italic;
+                font-size: 18px;
+                font-weight: 700;
+                font-family: "Times New Roman";
+                visibility: hidden;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container header">
+        <span id="group">Группа:P3211</span>
+        <span id="name">Черный Кирилл</span>
+        <span id="task">Вариант:28123</span>
+    </div>
+    <div class="container main" id="main">
+        <p class="title"><b>Выберите входные данные</b></p>
+        <form name="form" class="form" id="form" method="post" action="script.php" target="resTable">
+            <p class="text">Введите координату Х:</p>
+            <input type="text" name="X" id="X" class="X element" placeholder="(-5..3)" onkeydown="resetValidation(this)" maxlength="6">
+            <div class="error" id="errX">123</div>
+            <p class="text" >Выберите координату Y:</p>
+            <select class="Y element" name="Y" id="Y">
+                <option value="-4">-4</option>
+                <option value="-3">-3</option>
+                <option value="-2">-2</option>
+                <option value="-1">-1</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+            <p class="text">Выберите R: <input type="text" name="R" id="Rf" class="Rf" readonly></p>
+            <input type="button" class="R" value="1" id="r1" onclick="setR(this); resetValidation()">
+            <input type="button" class="R" value="1.5" id="r1.5" onclick="setR(this); resetValidation()">
+            <input type="button" class="R" value="2" id="r2" onclick="setR(this); resetValidation()">
+            <input type="button"  class="R" value="2.5" id="r2.5" onclick="setR(this); resetValidation()">
+            <input type="button"  class="R" value="3" id="r3" onclick="setR(this); resetValidation()"> <br>
+            <div class="error" id="errR">123</div>
+            <input type="button" onclick="validation()" value="Отправить" class="R" id="sub" name="sub">
+        </form>
+        <div class="pic"><img id=123 src="img/123.jpg" width="75"></div>
+    </div>
+    <div>
+        <iframe class="container resTable" name="resTable" id="resTable" onload="fromPhp('resTable')"
+                frameborder="0" align="middle" src="script.php">
+        </iframe>
+    </div>
+    </body>
+</html>
