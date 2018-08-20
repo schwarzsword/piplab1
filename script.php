@@ -1,6 +1,5 @@
 <?php
-    session_start();
-    $curtime = date("H:i:s",strtotime("+1 hour"));
+    $curtime = date("H:i:s",strtotime("+3 hour"));
     $startWork = microtime(true);
     $x = $_POST["X"];
     $y = $_POST["Y"];
@@ -16,21 +15,12 @@
     else
     if (
         ($x >= 0 && $y >= 0 && ($x * $x + $y * $y) <= ($r / 2) * ($r / 2)) ||
-        ($x <= 0 && $y >= 0 && $y >= (($r * $x) - ($r/2))) ||
+        ($x <= 0 && $y >= 0 && $y <= ($x - ($r/2))) ||
         ($x <= 0 && $y <= 0 && $x >= (-$r) && $y >= ((-$r) / 2))
     )
         $result = "True";
     else
         $result = "False";
-
-    $history[$count]['arRes']=$result;
-    $history[$count]['arCurrTime']=$curtime;
-    $endWork = microtime(true);
-    $history[$count]['arWorkTime']=round (($endWork-$startWork), $precision = 6);
-    $data = serialize($history);
-    file_put_contents($file, $data);
-    $count=$count+1;
-    file_put_contents('counter.txt', $count);
 
     echo '<!DOCKTYPE html>
 <html>
@@ -81,6 +71,10 @@
                 <th>Working time</th>
                 <th>Current time</th>
             </tr>';
+$history[$count]['arRes']=$result;
+$history[$count]['arCurrTime']=$curtime;
+$endWork = microtime(true);
+$history[$count]['arWorkTime']=round (($endWork-$startWork)*1000, $precision = 3);
 foreach ($history as $point)
 {
     echo '<tr>
@@ -96,5 +90,8 @@ foreach ($history as $point)
     </div>
 </body>
 </html>';
-a:
 
+$data = serialize($history);
+file_put_contents($file, $data);
+$count=$count+1;
+file_put_contents('counter.txt', $count);
