@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="description" content="lab1 pip">
         <meta name="author" content="Kirill Black">
-        <script type="text/javascript" src="jscript.js"></script>
+        <script  type="text/javascript" src="jscript.js"></script>
         <title>Lab1 PIP</title>
         <style>
             a{
@@ -21,6 +21,7 @@
             body{
                 background: url("img/4563.png") fixed;
                 background-size: 100%;
+                background-color: black;
             }
             .container{
                 text-align: center;
@@ -64,7 +65,7 @@
                 margin-top: 0;
             }
             .form>p{
-                font-size: 0.8em;
+                font-size: 30px;
                 margin-top: 15px;
                 margin-bottom: 10px;
             }
@@ -164,8 +165,9 @@
                 font-weight: 600;
             }
             .pic{
-                margin-left: 730px;
-                width: 150px;
+                margin-left: 1000px;
+                width: 75px;
+                height: 90px;
             }
             .text{
                 font-size: 20px;
@@ -179,34 +181,26 @@
                 font-weight: 700;
                 font-family: "Times New Roman";
                 visibility: hidden;
-                margin: 0 auto;
-            }
-            .clock{
-                width: 300px;
-                float: left;
-                font-size: 26px
-            }
-            #clock{
-                font-size: 30px;
-                font-weight: 600;
+                margin: 0 auto
             }
             .image{
                 width: 420px;
                 height: 420px;
                 margin-right: 80px;
-                margin-bottom: 66px;
+                margin-bottom: 36px;
                 margin-top: 40px;
                 float: right;
-            }
-            .footer{
-                width: 1200px;
-                height: 320px;
-                float: bottom;
             }
             .graph{
                 border-radius: 25px;
                 border: 2px #282c34 solid;
                 margin-right: 75px;
+            }
+            .aj{
+                margin: 0 auto;
+                background: white;
+                width: 1200px;
+                margin-top: 15px;
             }
         </style>
     </head>
@@ -218,10 +212,10 @@
     </div>
     <div class="container main" id="main">
         <p class="title"><b>Выберите входные данные</b></p>
-        <div>
+
         <form name="form" class="form" id="form" method="post" action="script.php" target="resTable">
             <p class="text">Введите координату Х:</p>
-            <input type="text" name="X" id="X" class="X element" placeholder="(-5..3)" onkeydown="resetValidationX()" maxlength="6">
+            <input type="text" autocomplete="off" name="X" id="X" class="X element" placeholder="(-5..3)" onkeydown="resetValidationX()" maxlength="8">
             <div class="error" id="errX">123</div>
             <p class="text" >Выберите координату Y:</p>
             <select class="Y element" name="Y" id="Y">
@@ -244,26 +238,15 @@
             <div class="error" id="errR">123</div>
             <input type="button" onclick="validation()" value="Отправить" class="R" id="sub" name="sub">
         </form>
-            <span class="image"> <canvas height="400" width="400" id="graph" name="graph" class="graph"></canvas></span></div>
-        <div class="footer">
+            <span class="image"> <canvas height="400" width="400" id="graph" name="graph" class="graph"></canvas></span>
             <script type="text/javascript">
                 window.onload=draw('graph');
-                window.onload = function(){
-                    (function(){
-                        var date = new Date();
-                        var time = date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
-                        document.getElementById('clock').innerHTML = time;
-                        window.setTimeout(arguments.callee, 1000);
-                    })();
-                }
             </script>
-            <span class="clock">Текущее время:<br><span id="clock"></span></span>
-            <span class="pic"><img id=123 src="img/123.jpg" width="75"></span>
-        </div>
+            <span class="pic"><img id=123 src="img/123.jpg" width="90"></span>
     </div>
     <div>
         <iframe class="container resTable" name="resTable" id="resTable" onload="fromPhp('resTable')"
-                frameborder="0" align="middle" src="script.php">
+                frameborder="0" align="middle">
         </iframe>
     </div>
     </body>

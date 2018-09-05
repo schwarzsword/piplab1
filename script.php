@@ -1,5 +1,5 @@
 <?php
-    $curtime = date("H:i:s",strtotime("+3 hour"));
+    $curtime = date("H:i:s",strtotime("-1 hour"));
     $startWork = microtime(true);
     $x = $_POST["X"];
     $y = $_POST["Y"];
@@ -7,20 +7,27 @@
     $file = 'arr.txt';
     $data = file_get_contents($file);
     $history = unserialize($data);
-    $count=file_get_contents('counter.txt');
-    $history[$count]['arX']=$x;
-    $history[$count]['arY']=$y;
-    $history[$count]['arR']=$r;
-    if (is_numeric($x)==false) exit;
-    else
-    if (
-        ($x >= 0 && $y >= 0 && ($x * $x + $y * $y) <= ($r / 2) * ($r / 2)) ||
-        ($x <= 0 && $y >= 0 && $y <= ($x - ($r/2))) ||
-        ($x <= 0 && $y <= 0 && $x >= (-$r) && $y >= ((-$r) / 2))
-    )
-        $result = "True";
-    else
-        $result = "False";
+    if (empty($history)){
+        $counter = 0;
+    }
+    else{
+        $counter = count($history);
+    }
+    $history[$counter]['arX']=$x;
+    $history[$counter]['arY']=$y;
+    $history[$counter]['arR']=$r;
+    if (is_numeric($x)==false || is_numeric($y)==false || is_numeric($r)==false || $x < -5 || $x > 3 || strlen($x)>8 || $y < -4 || $y > 4 || strlen($y)>2 || ($r != 1 &&  $r != 1.5 &&  $r != 2 &&  $r != 2.5 && $r != 3))
+        $result = "Inv Args";
+    else {
+        if (
+            ($x >= 0 && $y >= 0 && ($x * $x + $y * $y) <= ($r / 2) * ($r / 2)) ||
+            ($x <= 0 && $y >= 0 && $y <= ($x - ($r / 2))) ||
+            ($x <= 0 && $y <= 0 && $x >= (-$r) && $y >= ((-$r) / 2))
+        )
+            $result = "True";
+        else
+            $result = "False";
+    }
 
     echo '<!DOCKTYPE html>
 <html>
@@ -71,10 +78,12 @@
                 <th>Working time</th>
                 <th>Current time</th>
             </tr>';
-$history[$count]['arRes']=$result;
-$history[$count]['arCurrTime']=$curtime;
+$history[$counter]['arRes']=$result;
+$history[$counter]['arCurrTime']=$curtime;
 $endWork = microtime(true);
-$history[$count]['arWorkTime']=round (($endWork-$startWork)*1000, $precision = 3);
+$history[$counter]['arWorkTime']= round (($endWork-$startWork)*1000, $precision = 3);
+$data = serialize($history);
+file_put_contents($file, $data);
 foreach ($history as $point)
 {
     echo '<tr>
@@ -91,7 +100,4 @@ foreach ($history as $point)
 </body>
 </html>';
 
-$data = serialize($history);
-file_put_contents($file, $data);
-$count=$count+1;
-file_put_contents('counter.txt', $count);
+

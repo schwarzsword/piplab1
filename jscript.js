@@ -1,3 +1,4 @@
+
 function validation() {
     var e = document.getElementById('form');
     var stopSubmit = false;
@@ -5,23 +6,33 @@ function validation() {
     var y = e.Y.value;
     var r = parseFloat(e.R.value);
     var msgx = '', msgr = '';
+    var arrx = x.split('');
 
-    if (isNaN(x) || x <= -5 || x >= 3) {
-        stopSubmit = true;
-        msgx += 'Введите число от -5 до 3, чтобы задать значение X';
-        document.getElementById('errX').style.visibility = 'visible';
-        document.getElementById('errX').innerHTML = msgx;
+        var newX = x.replace(/,/g,'.');
+        document.getElementById('X').value = newX;
+        x = e.X.value;
+
+    if (x == '666') {
+        easter('graph');
     }
-    if (isNaN(r)){
-        stopSubmit = true;
-        msgr+='Нажмите на одну из кнопок, чтобы задать значение R';
-        document.getElementById('errR').style.visibility = 'visible';
-        document.getElementById('errR').innerHTML=msgr;
-    }
-    if(!stopSubmit){
-        e.submit();
-        document.getElementById('resTable').style.display="block";
-        drawPoint('graph', x, y, r);
+    else {
+        if (isNaN(x) || x <= -5 || x >= 3 || x == " " || arrx[0] == '.' || x=='') {
+            stopSubmit = true;
+            msgx += 'Введите число от -5 до 3, чтобы задать значение X';
+            document.getElementById('errX').style.visibility = 'visible';
+            document.getElementById('errX').innerHTML = msgx;
+        }
+        if (isNaN(r)) {
+            stopSubmit = true;
+            msgr += 'Нажмите на одну из кнопок, чтобы задать значение R';
+            document.getElementById('errR').style.visibility = 'visible';
+            document.getElementById('errR').innerHTML = msgr;
+        }
+        if (!stopSubmit) {
+            e.submit();
+            document.getElementById('resTable').style.display = "block";
+            drawPoint('graph', x, y, r);
+        }
     }
 }
 
@@ -172,4 +183,55 @@ function drawPoint(canv, x, y, r) {
         ctx.fill();
         ctx.stroke();
     }
+}
+
+function easter(canv){
+    draw(canv);
+    setTimeout(pentagramm(canv),500);
+    dot(canv, 200, 300);
+    setTimeout(dot(canv, 106, 235),500);
+    setTimeout(dot(canv, 141, 119),500);
+    setTimeout(dot(canv, 258, 119),500);
+    setTimeout(dot(canv, 293, 235),500);
+    $.animate(circle(canv), 1000);
+
+}
+
+function dot(canv, x, y) {
+    var ctx = document.getElementById(canv).getContext("2d");
+    ctx.beginPath();
+    ctx.arc(x,y, 3, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.strokeStyle = "crimson";
+    ctx.fillStyle = "crimson";
+    ctx.fill();
+    ctx.stroke();
+}
+
+function circle(canv) {
+    var ctx = document.getElementById(canv).getContext("2d");
+    ctx.beginPath();
+    ctx.arc(200,200, 100, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.strokeStyle = "crimson";
+    ctx.fillStyle = "crimson";
+    ctx.lineWidth=4;
+    ctx.stroke();
+}
+
+function pentagramm(canv) {
+    var ctx = document.getElementById(canv).getContext("2d");
+    ctx.beginPath();
+    ctx.moveTo(200,300);
+    ctx.lineTo(141,119);
+    ctx.lineTo(293,235);
+    ctx.lineTo(106,235);
+    ctx.lineTo(258,119);
+    ctx.lineTo(200,300);
+    ctx.closePath();
+    ctx.strokeStyle = "crimson";
+    ctx.fillStyle = "crimson";
+    ctx.lineWidth=2;
+    ctx.stroke();
+
 }
