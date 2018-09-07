@@ -1,9 +1,9 @@
 <?php
     $curtime = date("H:i:s",strtotime("-1 hour"));
     $startWork = microtime(true);
-    $x = $_POST["X"];
-    $y = $_POST["Y"];
-    $r = $_POST["R"];
+    $x = floatval($_POST["X"]);
+    $y = floatval($_POST["Y"]);
+    $r = floatval($_POST["R"]);
     $file = 'arr.txt';
     $data = file_get_contents($file);
     $history = unserialize($data);
@@ -16,8 +16,19 @@
     $history[$counter]['arX']=$x;
     $history[$counter]['arY']=$y;
     $history[$counter]['arR']=$r;
-    if (is_numeric($x)==false || is_numeric($y)==false || is_numeric($r)==false || $x < -5 || $x > 3 || strlen($x)>8 || $y < -4 || $y > 4 || strlen($y)>2 || ($r != 1 &&  $r != 1.5 &&  $r != 2 &&  $r != 2.5 && $r != 3))
-        $result = "Inv Args";
+    if (is_numeric($x)==false ||  $x < -5 || $x > 3 || strlen($x)>8 ) {
+        $x = "Inv Arg";
+        $result = "Inv Args";}
+    else
+        if (is_numeric($y) == false ||  $y < -4 || $y > 4 || strlen($y) > 2) {
+                $y = "Inv Arg";
+                $result = "Inv Args";
+            }
+            else
+                if(is_numeric($r) == false || ($r != 1 && $r != 1.5 && $r != 2 && $r != 2.5 && $r != 3)){
+                    $r = "Inv Arg";
+                    $result = "Inv Args";
+                }
     else {
         if (
             ($x >= 0 && $y >= 0 && ($x * $x + $y * $y) <= ($r / 2) * ($r / 2)) ||
