@@ -1,14 +1,14 @@
 
 function validation() {
-    var e = document.getElementById('form');
-    var stopSubmit = false;
-    var x = e.X.value;
-    var y = e.Y.value;
-    var r = parseFloat(e.R.value);
-    var msgx = '', msgr = '';
-    var arrx = x.split('');
+    let e = document.getElementById('form');
+    let stopSubmit = false;
+    let x = e.X.value;
+    let y = e.Y.value;
+    let r = parseFloat(e.R.value);
+    let msgx = '', msgr = '';
+    let arrx = x.split('');
 
-        var newX = x.replace(/,/g,'.');
+    let newX = x.replace(/,/g,'.');
         document.getElementById('X').value = newX;
         x = e.X.value;
 
@@ -41,7 +41,7 @@ function fromPhp(id) {
 }
 
 function setR(but) {
-    var val1 = parseFloat(but.value);
+    let val1 = parseFloat(but.value);
     document.getElementById('Rf').value=val1;
     document.getElementById('Rf').style.display='inline';
 }
@@ -59,7 +59,7 @@ function resetValidationR() {
 }
 
 function draw(canv){
-    var ctx = document.getElementById(canv).getContext("2d");
+    let ctx = document.getElementById(canv).getContext("2d");
 
     ctx.clearRect(0,0,400,400);
 
@@ -148,7 +148,7 @@ function draw(canv){
 }
 
 function drawPoint(canv, x, y, r) {
-    var ctx = document.getElementById(canv).getContext("2d");
+    let ctx = document.getElementById(canv).getContext("2d");
 
     ctx.clearRect(0,0,400,400);
 
@@ -193,12 +193,12 @@ function easter(canv){
     setTimeout(dot(canv, 141, 119),500);
     setTimeout(dot(canv, 258, 119),500);
     setTimeout(dot(canv, 293, 235),500);
-    $.animate(circle(canv), 1000);
+    setTimeout(circle(canv), 1000);
 
 }
 
 function dot(canv, x, y) {
-    var ctx = document.getElementById(canv).getContext("2d");
+    let ctx = document.getElementById(canv).getContext("2d");
     ctx.beginPath();
     ctx.arc(x,y, 3, 0, Math.PI * 2);
     ctx.closePath();
@@ -209,7 +209,7 @@ function dot(canv, x, y) {
 }
 
 function circle(canv) {
-    var ctx = document.getElementById(canv).getContext("2d");
+    let ctx = document.getElementById(canv).getContext("2d");
     ctx.beginPath();
     ctx.arc(200,200, 100, 0, Math.PI * 2);
     ctx.closePath();
@@ -220,7 +220,7 @@ function circle(canv) {
 }
 
 function pentagramm(canv) {
-    var ctx = document.getElementById(canv).getContext("2d");
+    let ctx = document.getElementById(canv).getContext("2d");
     ctx.beginPath();
     ctx.moveTo(200,300);
     ctx.lineTo(141,119);
